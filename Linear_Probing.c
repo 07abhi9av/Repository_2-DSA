@@ -1,42 +1,73 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 #define SIZE 10
 
-int hash(int key){
-    return key%SIZE;
+int hash_table[SIZE] = {};
+
+void insert(){
+    int index, key, h_key, i;
+    printf("\nenter value to insert: ");
+    scanf("%d",&key);
+    
+    h_key = key%SIZE;
+    
+    for(i=0;i<SIZE;i++){
+        index = (h_key+i)%SIZE;
+        if(hash_table[index] == NULL){
+            hash_table[index] = key;
+            break;
+        }
+    }
+    if(i==SIZE){
+        printf("\ncannot insert\n");
+    }
 }
 
-int probe(int H[], int key){
-    int index = hash(key);
-    int i=0;
-    while(H[(index+i)%SIZE] != 0){
-        i++;
+void search(){
+    int index, key, h_key, i;
+    printf("\nenter value to search: ");
+    scanf("%d",&key);
+    
+    h_key = key%SIZE;
+    
+    for(i=0;i<SIZE;i++){
+        index = (h_key+i)%SIZE;
+        if(hash_table[index] == key){
+            printf("\nelement found at index %d\n",index);
+            break;
+        }
     }
-    return(index+i)%SIZE;
+    if(i==SIZE){
+        printf("\nnot found\n");
+    }
 }
 
-void insert(int H[], int key){
-    int index = hash(key);
-    if(H[index]!=0){
-        index = probe(H,key);
+void display(){
+    for(int i=0;i<SIZE;i++){
+        printf("\nvalue %d found at index %d\n",i,hash_table[i]);
     }
-    H[index] = key;
-}
-
-int search(int H[], int key){
-    int index = hash(key);
-    int i=0;
-    while (H[index+i]%SIZE!=key){
-        i++;
-    }
-    return H[index+i]%SIZE;
 }
 
 int main(){
-    int HT[10] = {0};
-    insert(HT,5);
-    insert(HT,12);
-    insert(HT,35);
-    insert(HT,16);
-
-    printf("Key found : %d",search(HT,12));
+    int choice;
+    while(1){
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+            insert();
+            break;
+            case 2:
+            display();
+            break;
+            case 3:
+            search();
+            break;
+            case 4:
+            exit(0);
+            break;
+        }
+    }
 }
+
+
