@@ -1,5 +1,1 @@
-#Repository First
-
-This is my first repository.
-
-Basic Repository.
+This repo contains DSA basic topics from my DSA course in C language.
