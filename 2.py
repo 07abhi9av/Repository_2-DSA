@@ -1,69 +1,52 @@
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+class ListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
-class Solution(object):
-    def mergeKLists(self, lists):
-        stack = []
-        dummy = ListNode(0)
-        curr = dummy
-
-        for x in lists:
-            while x:
-                stack.append(x.val)
-                x = x.next
-
-        stack.sort()
-        while stack:
-            newNode = ListNode(stack.pop(0))
-            curr.next = newNode
-            curr = curr.next
-
-        return dummy.next
-
-def process_input():
-    k = int(input())
-    input_data = []
-    for _ in range(k):
-        size = int(input())
-        elements = list(map(int, input().split()))
-        input_data.append(elements)
-    return k, input_data
-
-def main():
-    solution = Solution()
+def merging(l1, l2):
+    head = ListNode(-1)
+    dummy = head
+    t1 = l1
+    t2 = l2
     
-    k, input_data = process_input()
-    lists = [None] * k  # Initialize with None instead of an empty ListNode
-    for i in range(k):
-        current = ListNode()  # Create a new ListNode
-        for val in input_data[i]:
-            if not lists[i]:  # If the list is empty, assign the current node as the head
-                lists[i] = current
-            current.next = ListNode(val)
-            current = current.next
+    while t1 and t2:
+        if t1.data < t2.data:
+            dummy.next = t1
+            dummy = t1
+            t1 = t1.next
+        else:
+            dummy.next = t2
+            dummy = t2
+            t2 = t2.next
+            
+    if t1:
+        dummy.next = t1
+    elif t2:
+        dummy.next = t2
+        
+    return head.next
 
-    # Merging the lists
-    merged_list = solution.mergeKLists(lists)
+def create_ll(nums):
+    head = ListNode(-1)
+    curr = head
+    for i in nums:
+        curr.next = ListNode(int(i))
+        curr = curr.next
+    return head.next
 
-    # Printing the merged list
-    result = []
-    current = merged_list
-    while current:
-        result.append(str(current.val))
-        current = current.next
+def print_ll(head):
+    t = head
+    while t:
+        print(t.data, end=" ")
+        t = t.next
 
-    print(" ".join(result))
+n1 = int(input())
+list1 = input().split()
+n2 = int(input())
+list2 = input().split()
 
-if __name__ == "__main__":
-    main()
+l1 = create_ll(list1)
+l2 = create_ll(list2)
 
-
-2
-4
-1 4 5 6
-3
-1 2 4 5
-0 0 1 1 2 4 4 5 5 6
+res = merging(l1, l2)
+print_ll(res)
