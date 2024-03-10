@@ -36,10 +36,12 @@ def main():
     solution = Solution()
     
     k, input_data = process_input()
-    lists = [ListNode() for _ in range(k)]
+    lists = [None] * k  # Initialize with None instead of an empty ListNode
     for i in range(k):
-        current = lists[i]
+        current = ListNode()  # Create a new ListNode
         for val in input_data[i]:
+            if not lists[i]:  # If the list is empty, assign the current node as the head
+                lists[i] = current
             current.next = ListNode(val)
             current = current.next
 
