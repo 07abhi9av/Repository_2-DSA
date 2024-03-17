@@ -1,3 +1,6 @@
+
+
+
 def length_of_lis(nums):
     if not nums:
         return 0
@@ -325,3 +328,44 @@ nums = list(map(int, nums_input.split(',')))
 
 # Output
 print("Maximum amount of money:", max_money(nums))
+
+
+
+from collections import defaultdict
+
+def min_fuel_cost(roads, seats):
+    graph = defaultdict(list)
+    for road in roads:
+        a, b = road
+        graph[a].append(b)
+        graph[b].append(a)
+
+    visited = set()
+    queue = [(0, 0)]  # (city, fuel)
+    total_fuel = 0
+
+    while queue:
+        city, fuel = queue.pop(0)
+        visited.add(city)
+        available_seats = seats - len(graph[city]) + 1
+
+        if available_seats >= 0:
+            fuel_needed = fuel + 1
+        else:
+            fuel_needed = fuel + 2
+
+        total_fuel += fuel_needed
+
+        for neighbor in graph[city]:
+            if neighbor not in visited:
+                queue.append((neighbor, fuel_needed))
+
+    return total_fuel
+
+# Input
+roads_input = input("Enter the roads (format: 'from1 to1 , from2 to2,...'): ")
+roads = [list(map(int, pair.split(','))) for pair in roads_input.split()]
+seats = int(input("Enter the number of seats: "))
+
+# Output
+print("Minimum fuel cost:", min_fuel_cost(roads, seats))
