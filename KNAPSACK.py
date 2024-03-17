@@ -65,3 +65,41 @@ Input:
 Output:
 
 2895
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def construct_binary_tree(input_str):
+    def build_tree(index):
+        if index >= len(input_str) or input_str[index] == 'N':
+            return None
+        node = TreeNode(int(input_str[index]))
+        node.left = build_tree(2 * index + 1)
+        node.right = build_tree(2 * index + 2)
+        return node
+
+    return build_tree(0)
+
+def sum_root_to_leaf(root, current_sum=0):
+    if not root:
+        return 0
+    
+    current_sum = current_sum * 10 + root.val
+    
+    if not root.left and not root.right:
+        return current_sum
+    
+    left_sum = sum_root_to_leaf(root.left, current_sum)
+    right_sum = sum_root_to_leaf(root.right, current_sum)
+    
+    return left_sum + right_sum
+
+# Example usage:
+input_str = input("Enter the binary tree in level order format with 'N' representing null nodes: ")
+root = construct_binary_tree(input_str)
+result = sum_root_to_leaf(root)
+print("Sum of all numbers formed from root to leaf paths:", result)
