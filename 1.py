@@ -1,4 +1,4 @@
-class Node(object):
+uclass Node(object):
     def __init__(self, x):
         self.item = x
         self.next = None
@@ -52,3 +52,27 @@ xyzxyzyy
 Output:
 
 3
+
+
+def longest_substring(s: str) -> int:
+    char_index = {}
+    max_length = 0
+    start = 0
+
+    for end in range(len(s)):
+        if s[end] in char_index:
+            # If the character is already in the current substring,
+            # update the start of the substring to the next position after the previous occurrence.
+            start = max(start, char_index[s[end]] + 1)
+
+        # Update the index of the current character.
+        char_index[s[end]] = end
+
+        # Update the maximum length of the substring.
+        max_length = max(max_length, end - start + 1)
+
+    return max_length
+
+# Example usage:
+s = input("Enter the string without any space: ")
+print(longest_substring(s))
