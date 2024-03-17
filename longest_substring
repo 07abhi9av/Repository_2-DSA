@@ -1,0 +1,19 @@
+def length_of_lis(nums):
+    if not nums:
+        return 0
+    
+    dp = [1] * len(nums)
+    
+    for i in range(1, len(nums)):
+        for j in range(i):
+            if nums[i] > nums[j]:
+                dp[i] = max(dp[i], dp[j] + 1)
+                
+    return max(dp)
+
+# Input sequence
+sequence = input("Enter the elements of the sequence separated by commas: ")
+nums = list(map(int, sequence.split(',')))
+
+# Output the length of the longest increasing subsequence
+print("Length of Longest Increasing Subsequence:", length_of_lis(nums))
