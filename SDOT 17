@@ -40,15 +40,14 @@ Input: 1 1 2 3
 Output: 1 3
 
 
-def min_deletions(nums, numsDivide):
-    smallest_divisor = min(nums)
-    count = sum(1 for num in nums if num % smallest_divisor != 0)
-    return count if all(num % smallest_divisor == 0 for num in numsDivide) else -1
-
-# Input
-nums = list(map(int, input().split()))
-numsDivide = list(map(int, input().split()))
-
-# Output
-print(min_deletions(nums, numsDivide))
+class Solution:
+    def minOperations(self, nums: List[int], numsDivide: List[int]) -> int:
+        x = numsDivide[0]
+        for v in numsDivide[1:]:
+            x = gcd(x, v)
+        nums.sort()
+        for i, v in enumerate(nums):
+            if x % v == 0:
+                return i
+        return -1
 
