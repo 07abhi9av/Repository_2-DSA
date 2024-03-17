@@ -233,3 +233,47 @@ if __name__ == "__main__":
     while merged_head:
         print(merged_head.val, end=" ")
         merged_head = merged_head.next
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeKLists(lists):
+    from heapq import heappush, heappop
+    heap = []
+    for lst in lists:
+        while lst:
+            heappush(heap, lst.val)
+            lst = lst.next
+
+    dummy = ListNode()
+    curr = dummy
+    while heap:
+        val = heappop(heap)
+        curr.next = ListNode(val)
+        curr = curr.next
+
+    return dummy.next
+
+# Taking user input
+k = int(input("Enter the number of linked lists: "))
+lists = []
+for _ in range(k):
+    size = int(input("Enter the size of the linked list: "))
+    elements = list(map(int, input("Enter the elements of the linked list in sorted order: ").split()))
+    head = ListNode(elements[0])
+    curr = head
+    for val in elements[1:]:
+        curr.next = ListNode(val)
+        curr = curr.next
+    lists.append(head)
+
+# Merging k sorted linked lists
+merged_head = mergeKLists(lists)
+
+# Printing the merged linked list
+while merged_head:
+    print(merged_head.val, end=" ")
+    merged_head = merged_head.next
