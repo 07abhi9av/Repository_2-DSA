@@ -78,3 +78,57 @@ Input:
 Output:
 
 1 1 2 4 4 5 6
+
+
+import heapq
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def merge_k_lists(lists):
+    if not lists:
+        return None
+    
+    heap = []
+    for node in lists:
+        if node:
+            heap.append((node.val, node))
+    
+    heapq.heapify(heap)
+    dummy = ListNode(0)
+    tail = dummy
+    
+    while heap:
+        _, smallest_node = heapq.heappop(heap)
+        tail.next = smallest_node
+        tail = tail.next
+        
+        if smallest_node.next:
+            heapq.heappush(heap, (smallest_node.next.val, smallest_node.next))
+    
+    return dummy.next
+
+# Taking user input
+k = int(input("Enter the number of linked lists: "))
+lists = []
+for _ in range(k):
+    size = int(input("Enter the size of linked list {}: ".format(_ + 1)))
+    elements = list(map(int, input("Enter the elements of linked list {}: ".format(_ + 1)).split()))
+    head = ListNode(elements[0])
+    current = head
+    for val in elements[1:]:
+        current.next = ListNode(val)
+        current = current.next
+    lists.append(head)
+
+# Merging lists
+merged_list = merge_k_lists(lists)
+
+# Printing merged list
+result = []
+while merged_list:
+    result.append(str(merged_list.val))
+    merged_list = merged_list.next
+print(" ".join(result))
