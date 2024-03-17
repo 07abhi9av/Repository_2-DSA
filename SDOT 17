@@ -192,3 +192,44 @@ if __name__ == '__main__':
 	printList(head)
 
 # This code is contributed by Mohit Kumar 29
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def mergeKLists(lists):
+    from heapq import heappush, heappop
+    heap = []
+    for lst in lists:
+        while lst:
+            heappush(heap, lst.val)
+            lst = lst.next
+
+    dummy = ListNode()
+    curr = dummy
+    while heap:
+        val = heappop(heap)
+        curr.next = ListNode(val)
+        curr = curr.next
+
+    return dummy.next
+
+# Example usage
+if __name__ == "__main__":
+    # Example input
+    k = 2
+    lists = []
+    head1 = ListNode(1, ListNode(4, ListNode(5, ListNode(6))))
+    head2 = ListNode(1, ListNode(2, ListNode(4, ListNode(5))))
+    lists.append(head1)
+    lists.append(head2)
+
+    # Merging k sorted linked lists
+    merged_head = mergeKLists(lists)
+
+    # Printing the merged linked list
+    while merged_head:
+        print(merged_head.val, end=" ")
+        merged_head = merged_head.next
