@@ -17,3 +17,28 @@ nums = list(map(int, sequence.split(',')))
 
 # Output the length of the longest increasing subsequence
 print("Length of Longest Increasing Subsequence:", length_of_lis(nums))
+
+LETTER COMBINATION OF PHONE NUMBER
+Given a string containing digits from 2-9 inclusive, print all possible letter combinations that the number could represent. Print the answer in sorted order.
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+Note
+1 does not map to any letters.
+2 : abc
+3 : def
+4 : ghi
+5 : jkl
+6 : mno
+7 : pqrs
+8 : tuv
+9 : wxyz
+Input
+The first line of input contains a string of digits.
+Output
+Print all possible letter combinations that the number could represent, separated by spaces.
+Example
+Input:
+
+23
+Output:
+
+ad ae af bd be bf cd ce cf
