@@ -141,3 +141,34 @@ Input:
 Output:
 
 7
+
+
+def trap_rain_water(elevation_map):
+    if not elevation_map:
+        return 0
+
+    left, right = 0, len(elevation_map) - 1
+    left_max = right_max = 0
+    water_trapped = 0
+
+    while left < right:
+        if elevation_map[left] < elevation_map[right]:
+            if elevation_map[left] >= left_max:
+                left_max = elevation_map[left]
+            else:
+                water_trapped += left_max - elevation_map[left]
+            left += 1
+        else:
+            if elevation_map[right] >= right_max:
+                right_max = elevation_map[right]
+            else:
+                water_trapped += right_max - elevation_map[right]
+            right -= 1
+
+    return water_trapped
+
+# Taking input from the user
+elevation_map = list(map(int, input("Enter the elevation map elements separated by spaces: ").split()))
+
+# Calculating and printing the amount of water trapped
+print("Amount of water trapped:", trap_rain_water(elevation_map))
