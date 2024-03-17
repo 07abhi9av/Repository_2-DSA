@@ -414,3 +414,29 @@ n = int(input("Enter the value of n: "))
 print("Combinations of well-formed parentheses for n:")
 for combination in generateParenthesis(n):
     print(combination)
+
+
+
+
+IMPLEMENT STACK USING QUEUES
+Implement stack using two queues. You need to complete the push and pop function of stack class. You are given 2 types of queries-
+'1' which represents that we need to push an integer into the stack.
+'2' which represents that we need to pop the top element from the stack. If there is no top element simply return -1.
+Input Format
+First line contains q of queries.
+Followed by q lines.
+Query of type 1 is followed by an integer x to push element in the stack.
+Query of type 2 is for pop the top value from the stack and print it.
+Output Format
+Print the value for pop operations in the query given.
+Example 1
+Input
+5
+1 2
+1 3
+2
+1 4
+2
+Output:
+
+3 4
