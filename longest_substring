@@ -335,3 +335,35 @@ class Solution:
 
 modify the code accordingly
 
+
+from collections import defaultdict
+from math import ceil
+
+def minimumFuelCost(roads, seats):
+    def dfs(a, fa):
+        nonlocal ans
+        sz = 1
+        for b in g[a]:
+            if b != fa:
+                t = dfs(b, a)
+                ans += (t + seats - 1) // seats  # Ceiling division
+                sz += t
+        return sz
+
+    g = defaultdict(list)
+    for a, b in roads:
+        g[a].append(b)
+        g[b].append(a)
+    ans = 0
+    dfs(0, -1)
+    return ans
+
+# Input
+roads_input = input("Enter the roads (format: 'from1 to1 , from2 to2,...'): ")
+roads = [list(map(int, pair.split())) for pair in roads_input.split(',')]
+seats = int(input("Enter the number of seats: "))
+
+# Output
+print("Minimum fuel cost:", minimumFuelCost(roads, seats))
+
+
