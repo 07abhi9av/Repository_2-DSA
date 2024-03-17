@@ -1,22 +1,22 @@
-0-1 KNAPSACK ALGORITHM
-You are given N items that cannot be broken. Each item has a weight and value associated with it.
-You also have a KnapSack of capacity W.
-Find the maximum value of items you can collect in the KnapSack so that the total weight does not exceed W.
-Input
-First line contains the values N and W.
-Second line contains N integers denoting the weights.
-Last line contains N integers denoting the values.
-Output
-Print the maximum value that can be collected with total weight less than or equal to W.
+# 0-1 KNAPSACK ALGORITHM
+# You are given N items that cannot be broken. Each item has a weight and value associated with it.
+# You also have a KnapSack of capacity W.
+# Find the maximum value of items you can collect in the KnapSack so that the total weight does not exceed W.
+# Input
+# First line contains the values N and W.
+# Second line contains N integers denoting the weights.
+# Last line contains N integers denoting the values.
+# Output
+# Print the maximum value that can be collected with total weight less than or equal to W.
 
-Example
-Input:
-3 5
-1 2 3
-1 5 3
+# Example
+# Input:
+# 3 5
+# 1 2 3
+# 1 5 3
 
-Output:
-8
+# Output:
+# 8
 
 
 def knapsack(N, W, weights, values):
@@ -38,3 +38,30 @@ values = list(map(int, input().split()))
 
 # Output
 print(knapsack(N, W, weights, values))
+
+
+SUM ROOT TO LEAF NODES
+Given a binary tree, where every node value is a Digit from 1-9. Find the sum of all the numbers which are formed from root to leaf paths.
+
+For example, consider the following Binary Tree. 
+63525N4NN74
+There are 4 leaves, hence 4 root to leaf paths:
+
+   Path                      Number
+
+  6->3->2                     632
+
+  6->3->5->7                 6357
+
+  6->3->5->4                 6354
+
+  6->5>4                      654   
+
+Answer = 632 + 6357 + 6354 + 654 = 13997
+Example
+Input:
+
+123456789
+Output:
+
+2895
