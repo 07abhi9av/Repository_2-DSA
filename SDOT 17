@@ -285,3 +285,50 @@ class Solution {
 }
 
 change this code to python and and take user input as stated by the problem statement and give the output
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class Solution:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+        self.diameter = 0
+        self.maxDepth(root)
+        return self.diameter
+    
+    def maxDepth(self, root: TreeNode) -> int:
+        if root is None:
+            return 0
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+        if (left + right) > self.diameter:
+            self.diameter = left + right
+        return 1 + max(left, right)
+
+def create_binary_tree(nodes):
+    if not nodes:
+        return None
+    root = TreeNode(int(nodes[0]))
+    queue = [root]
+    i = 1
+    while queue:
+        current = queue.pop(0)
+        if i < len(nodes) and nodes[i] != 'N':
+            current.left = TreeNode(int(nodes[i]))
+            queue.append(current.left)
+        i += 1
+        if i < len(nodes) and nodes[i] != 'N':
+            current.right = TreeNode(int(nodes[i]))
+            queue.append(current.right)
+        i += 1
+    return root
+
+# Driver Code
+if __name__ == "__main__":
+    nodes = input("Enter the nodes of the binary tree separated by space: ").split()
+    root = create_binary_tree(nodes)
+    solution = Solution()
+    print("Diameter of the binary tree:", solution.diameterOfBinaryTree(root))
