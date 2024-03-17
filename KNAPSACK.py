@@ -17,3 +17,24 @@ Input:
 
 Output:
 8
+
+
+def knapsack(N, W, weights, values):
+    dp = [[0] * (W + 1) for _ in range(N + 1)]
+
+    for i in range(1, N + 1):
+        for w in range(1, W + 1):
+            if weights[i - 1] <= w:
+                dp[i][w] = max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    return dp[N][W]
+
+# Input
+N, W = map(int, input().split())
+weights = list(map(int, input().split()))
+values = list(map(int, input().split()))
+
+# Output
+print(knapsack(N, W, weights, values))
