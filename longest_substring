@@ -440,3 +440,48 @@ Input
 Output:
 
 3 4
+ii
+
+class StackUsingQueues:
+    def __init__(self):
+        self.queue1 = []
+        self.queue2 = []
+
+    def push(self, x):
+        # Move all elements from queue1 to queue2
+        while self.queue1:
+            self.queue2.append(self.queue1.pop(0))
+        
+        # Add the new element to queue1
+        self.queue1.append(x)
+        
+        # Move all elements back to queue1 from queue2
+        while self.queue2:
+            self.queue1.append(self.queue2.pop(0))
+
+    def pop(self):
+        if not self.queue1:
+            return -1
+        return self.queue1.pop(0)
+
+# Main function to process queries
+def process_queries(queries):
+    stack = StackUsingQueues()
+    result = []
+    
+    for query in queries:
+        query_type, *args = query.split()
+        if query_type == '1':
+            stack.push(int(args[0]))
+        elif query_type == '2':
+            result.append(stack.pop())
+    
+    return result
+
+# Input processing and function call
+q = int(input())
+queries = [input() for _ in range(q)]
+output = process_queries(queries)
+print(*output)
+
+
