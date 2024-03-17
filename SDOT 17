@@ -315,3 +315,58 @@ if __name__ == "__main__":
     nodes = input("Enter the nodes of the binary tree separated by space: ").split()
     root = create_binary_tree(nodes)
     print("Diameter of the binary tree:", diameter(root))
+
+
+
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+def diameter(root):
+    if root is None:
+        return 0
+    
+    # Function to calculate the height and diameter simultaneously
+    def height_and_diameter(node):
+        nonlocal max_diameter
+        if node is None:
+            return 0
+        left_height = height_and_diameter(node.left)
+        right_height = height_and_diameter(node.right)
+        # Update the diameter if needed
+        max_diameter = max(max_diameter, left_height + right_height)
+        return max(left_height, right_height) + 1
+    
+    max_diameter = 0
+    height_and_diameter(root)
+    return max_diameter
+
+def create_binary_tree(nodes):
+    root = Node(int(nodes[0]))
+    queue = [root]
+    i = 1
+    while queue:
+        current = queue.pop(0)
+        if i < len(nodes) and nodes[i] != 'N':
+            current.left = Node(int(nodes[i]))
+            queue.append(current.left)
+        i += 1
+        if i < len(nodes) and nodes[i] != 'N':
+            current.right = Node(int(nodes[i]))
+            queue.append(current.right)
+        i += 1
+    return root
+
+# Driver Code
+if __name__ == "__main__":
+    nodes = input("Enter the nodes of the binary tree separated by space: ").split()
+    root = create_binary_tree(nodes)
+    
+    # Calculate the diameter considering both cases (passing through the root and not)
+    diameter_with_root = diameter(root)
+    
+    # Find the maximum diameter between considering and not considering the root
+    max_diameter = max(diameter_with_root, max(diameter(root.left), diameter(root.right)))
+    print("Diameter of the binary tree:", max_diameter)
