@@ -163,3 +163,50 @@ Input:
 Output:
 
 1 2 3 6 9 8 7 4 5
+
+
+def print_spiral(matrix):
+    if not matrix:
+        return []
+
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    result = []
+
+    top_row, bottom_row = 0, rows - 1
+    left_col, right_col = 0, cols - 1
+
+    while top_row <= bottom_row and left_col <= right_col:
+        for i in range(left_col, right_col + 1):
+            result.append(matrix[top_row][i])
+        top_row += 1
+
+        for i in range(top_row, bottom_row + 1):
+            result.append(matrix[i][right_col])
+        right_col -= 1
+
+        if top_row <= bottom_row:
+            for i in range(right_col, left_col - 1, -1):
+                result.append(matrix[bottom_row][i])
+            bottom_row -= 1
+
+        if left_col <= right_col:
+            for i in range(bottom_row, top_row - 1, -1):
+                result.append(matrix[i][left_col])
+            left_col += 1
+
+    return result
+
+# Input
+rows = int(input())
+cols = int(input())
+
+matrix = []
+for _ in range(rows):
+    row = list(map(int, input().split()))
+    matrix.append(row)
+
+# Output
+result = print_spiral(matrix)
+print(' '.join(map(str, result)))
