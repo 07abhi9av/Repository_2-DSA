@@ -1,1 +1,1 @@
-This repo contains DSA basic topics from my DSA course in C language.
+This repo contains DSA basic topics.
